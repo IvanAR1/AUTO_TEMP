@@ -20,21 +20,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//Rutas sin middleware
 Route::group([
     'prefix' => 'auth'
 ], function () {
     Route::post('login', [AuthController::class, 'login']);
 });
 
+//Rutas de esp8266
 Route::group([
-    'prefix' => 'esp8266'
+    'middleware'=>"client",
+    'prefix' => 'esp8266',
 ], function () {
     Route::get('index', [Esp8266Controller::class, 'index']);
 });
 
-
-
-//Rutas de JWT
+//Rutas de usuario
 Route::group([
     'middleware'=>"auth",
     'prefix' => 'auth'
