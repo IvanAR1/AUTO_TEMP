@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Traits\JSON;
 use RuntimeException;
 
 class ValidatorUser
@@ -25,13 +24,12 @@ class ValidatorUser
             case 'login':
                 return $this->Validator($credentials, $this->login);
                 break;
-            
         }
     }
 
     private function Validator(array $credentials, $rules)
     {
-        $Validator = Validator::make($credentials, $this->login);
+        $Validator = Validator::make($credentials, $rules);
         if($Validator->fails())
         {
             throw new HttpResponseException(response()->json(['error' => 'El correo y contraseña deben ser válidos.']));

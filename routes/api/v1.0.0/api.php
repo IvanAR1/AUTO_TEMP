@@ -36,7 +36,7 @@ Route::group([
 
 //Rutas de JWT
 Route::group([
-    'middleware'=>["auth:sanctum"],
+    'middleware'=>"auth",
     'prefix' => 'auth'
 ], function () {
     Route::get('me', [AuthController::class, 'me']);

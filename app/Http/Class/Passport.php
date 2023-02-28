@@ -9,9 +9,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ValidatorUser;
 use Illuminate\Support\Facades\Hash;
 
-class Sanctum extends Controller
+class Passport extends Controller
 {
     use JSON;
+
     public function login(Request $request)
     {
         $data = $request->only(['email', 'password']);
@@ -20,24 +21,24 @@ class Sanctum extends Controller
         $user = User::where("email","=",$data['email'])->first();
         if(isset($user->id))
         {
-            if(Hash::check($data['password'],$user->password))
+            if(Hash::check($data['password'], $user->password))
             {
-                $token = $user->createToken("auth_token")->plainTextToken;
-                $json = ['access_token' => $token];
-                $status = 'OK';
+                $token = $user->createToken("auth_token")->accessToken;
+                $json['access_token'] = $token;
+                $json['status'] = 'OK';
             }
             else
             {
                 $json = ['message' => 'Las credenciales no son válidas'];
-                $status = 'error';
+                $json['status'] = 'error';
             }
         }
         else
         {
             $json = ['message' => 'Las credenciales no son válidas'];
-            $status = 'error';
+            $json['status'] = 'error';
         }
-        return $this->toJson($json, $status);
+        return $this->toJson($json, $json['status']);
     }
 
     /**
