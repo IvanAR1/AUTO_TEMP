@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\esp8266;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Storeesp8266Request;
-use App\Http\Requests\Updateesp8266Request;
 
 class Esp8266Controller extends Controller
 {
@@ -15,9 +17,13 @@ class Esp8266Controller extends Controller
      */
     public function index()
     {
-        //$esp8266 = esp8266::select('id', 'user_id')->where('id',1)->get();
-        $esp8266s = esp8266::all();
-        return response()->json($esp8266s,200);
+        $esp8266s = esp8266::where('user_id', '=', Auth::id())->get();
+        if($esp8266s->isEmpty())
+        {
+            return $this->toJson(['message'=>'¡Manda tus primeros datos desde arduino!'],'error');
+            exit;
+        }
+        return $this->toJson(['message'=>$esp8266s]);
     }
 
     /**
@@ -25,9 +31,18 @@ class Esp8266Controller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function update(Request $request)
     {
-        //
+        $data = $request->only(['user_name', 'user_email', 'temperature']);
+        $user = User::where("alias_user", "=" , $data['user_name'])
+                      ->where("email", "=" , $data['user_email'])
+                      ->first();
+        esp8266::updateOrCreate(['user_id'=>$user->id],
+        [
+            'temperature'=>$data['temperature'],
+            'user_id'=>$user->id
+        ]);
+        return $this->toJson(['message'=>'Datos almacenados correctamente']);
     }
 
     /**
@@ -59,18 +74,6 @@ class Esp8266Controller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(esp8266 $esp8266)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\Updateesp8266Request  $request
-     * @param  \App\Models\esp8266  $esp8266
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Updateesp8266Request $request, esp8266 $esp8266)
     {
         //
     }

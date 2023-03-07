@@ -2,7 +2,7 @@
 
 namespace App\Http\Traits;
 
-trait JSON
+/* trait HTTP
 {
     public function toJson(array $array, string $status = 'OK')
     {
@@ -26,4 +26,4 @@ trait JSON
     {
         return response()->json($data, 200);
     }
-}
+} */

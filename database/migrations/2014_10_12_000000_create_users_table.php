@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name_user');
             $table->string('lastname_user');
             $table->string('alias_user');
-            $table->string('avatar_user');
             $table->string('role_user');
             $table->string('email')->unique();
             $table->timestamp('email_user_verified_at')->nullable();

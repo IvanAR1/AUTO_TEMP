@@ -16,9 +16,7 @@ class esp8266 extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'api_key',
         'temperature',
-        'humidity',
         'user_id',
     ];
 

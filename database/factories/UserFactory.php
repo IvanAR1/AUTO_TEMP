@@ -25,7 +25,6 @@ class UserFactory extends Factory
             'name_user' => fake()->name(),
             'lastname_user' => fake()->name(),
             'alias_user' => fake()->name(),
-            'avatar_user' => 'general.jpg',
             'role_user' => fake()->randomElement(['administrador', 'editor', 'lector']),
             'email' => fake()->unique()->safeEmail(),
             'email_user_verified_at' => now(),

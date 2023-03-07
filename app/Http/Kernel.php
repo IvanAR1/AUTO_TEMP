@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'abilities' => \Laravel\Sanctum\Http\Middleware\CheckAbilities::class,
         'ability' => \Laravel\Sanctum\Http\Middleware\CheckForAnyAbility::class,
         'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
+        'esp8266_user' => \App\Http\Middleware\UserESP8266Middleware::class,
     ];
 }

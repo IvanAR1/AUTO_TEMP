@@ -28,9 +28,7 @@ class Esp8266Factory extends Factory
 
         return [
             'user_id' => $userId,
-            'api_key' => Str::random(10),
             'temperature' => rand(15,30) + rand(0, 10) / 10 + + rand(0, 10) / 100,
-            'humidity' => rand(15,30) + rand(0, 10) / 10 + + rand(0, 10) / 100,
         ];
     }
 }
