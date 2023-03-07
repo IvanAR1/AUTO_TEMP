@@ -16,5 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UserSeeder::class);
         $this->call(Esp8266Seeder::class);
+        $this->call(ChannelSeeder::class);
+        $this->call(UserChannelSeeder::class);
     }
 }

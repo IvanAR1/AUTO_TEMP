@@ -14,9 +14,9 @@ class AuthController extends Passport
 
     public function ESP8266()
     {
-        $user = 
+        $url = env('APP_DEV_URL') ?: env('APP_URL');
         $guzzle = new Client;
-        $response = $guzzle->post(strval(env('APP_URL') . '/oauth/token'), [
+        $response = $guzzle->post(strval($url . '/oauth/token'), [
             'form_params' => [
                 'grant_type' => 'client_credentials',
                 'client_id' => env('OAUTH_CLIENT_ID_ESP8266'),

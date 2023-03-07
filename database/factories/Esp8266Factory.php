@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -18,16 +17,10 @@ class Esp8266Factory extends Factory
      */
     public function definition()
     {
-        $user_count = User::all()->count();
-        $user = [];
-        for ($i = 1; $i <= $user_count; $i++) {
-            array_push($user, $i);
-        }
-        $user = $this->faker->unique()->randomElement($user);
-        $userId = $user;
+        
 
         return [
-            'user_id' => $userId,
+            'arduino_key' => Str::random(10),
             'temperature' => rand(15,30) + rand(0, 10) / 10 + + rand(0, 10) / 100,
         ];
     }

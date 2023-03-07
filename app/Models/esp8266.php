@@ -4,11 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Sanctum\HasApiTokens;
 
 class esp8266 extends Model
 {
-    use HasApiTokens, HasFactory;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -17,11 +16,6 @@ class esp8266 extends Model
      */
     protected $fillable = [
         'temperature',
-        'user_id',
+        'arduino_key',
     ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 }

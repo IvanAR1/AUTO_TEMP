@@ -24,7 +24,6 @@ class UserSeeder extends Seeder
         $default->name_user = 'Danilo Iván';
         $default->lastname_user = 'Alanis Rocha';
         $default->alias_user = 'IvanAR1';
-        $default->role_user = 'administrador';
         $default->email = 'psoportepipsa@gmail.com';
         $default->email_user_verified_at = now();
         $default->password = Hash::make('12345678');

@@ -22,7 +22,6 @@ class User extends Authenticatable
         'name_user',
         'lastname_user',
         'alias_user',
-        'role_user',
         'email',
         'password',
     ];
@@ -37,8 +36,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function esp8266()
+    public function channel()
     {
-        return $this->hasOne(esp8266::class);
+        return $this->hasMany(UserChannel::class);
     }
 }

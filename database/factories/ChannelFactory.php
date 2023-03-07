@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class ChannelFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => fake()->text(50),
+            'description'=>fake()->text(200),
+            'arduino_key' => Str::random(10),
         ];
     }
 }
