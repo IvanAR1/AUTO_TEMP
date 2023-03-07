@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('esp8266s', function (Blueprint $table) {
+        Schema::create('channels', function (Blueprint $table) {
             $table->id();
-            $table->float('temperature');
+            $table->string('name','50');
+            $table->text('description');
             $table->string('arduino_key','100');
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('esp8266s');
+        Schema::dropIfExists('channels');
     }
 };

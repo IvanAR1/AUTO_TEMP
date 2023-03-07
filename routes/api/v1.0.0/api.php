@@ -20,29 +20,31 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Rutas de usuario
-Route::group([
-    'prefix' => 'auth'
-], function () {
-    Route::post('login', [AuthController::class, 'login']);
+//Rutas sin grupo
+Route::post('login', [AuthController::class, 'login']);
+Route::post('temperature', [Esp8266Controller::class, 'update'])->middleware('arduino_key');
 
-    Route::group(['middleware'=>'auth'], function () {
-        Route::get('me', [AuthController::class, 'me']);
-        Route::post('logout', [AuthController::class, 'logout']);
-        Route::post('check', [AuthController::class, 'checkToken']);
-        Route::get('esp8266/index', [Esp8266Controller::class, 'index']);
-    });
+//Rutas de autorización interna
+Route::group([
+        'middleware'=>'auth',
+        'prefix' => 'auth'
+    ], function () {
+    Route::get('me', [AuthController::class, 'me']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('check', [AuthController::class, 'checkToken']);
+    Route::get('channels/show', []);
+    Route::post('channels/create', []);
 });
 
-//Rutas de esp8266
+//Rutas del cliente
 Route::group([
     'middleware'=>'client',
-    'prefix' => 'esp8266',
+    'prefix' => 'client',
 ], function () {
-    Route::get('key', [AuthController::class, 'ESP8266']);
-    Route::group([
-        'middleware'=>'esp8266_user',
-    ], function () {
-        Route::post('update', [Esp8266Controller::class, 'update']);
+    Route::get('arduino/key', [AuthController::class, 'arduino']);
+    Route::group(['prefix' => 'channels'], function () {
+        Route::get('show', []);
+        Route::post('create', []);
+        Route::put('update', []);
     });
 });
