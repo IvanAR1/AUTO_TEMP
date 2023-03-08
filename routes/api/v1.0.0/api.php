@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Rutas sin grupo
 Route::post('auth/login', [AuthController::class, 'login']);
-Route::post('temperature{apikey?}/{temperature?}/', [Esp8266Controller::class, 'create']);
+Route::post('temperature/{apikey?}/{temperature?}/', [Esp8266Controller::class, 'create']);
 
 //Rutas de autorización interna
 Route::group([
