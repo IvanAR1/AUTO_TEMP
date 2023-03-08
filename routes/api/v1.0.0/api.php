@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Rutas sin grupo
 Route::post('auth/login', [AuthController::class, 'login']);
-Route::post('temperature', [Esp8266Controller::class, 'update'])->middleware('arduino_key');
+Route::post('temperature{apikey?}/{temperature?}/', [Esp8266Controller::class, 'create']);
 
 //Rutas de autorización interna
 Route::group([
@@ -34,7 +34,6 @@ Route::group([
     Route::get('me', [AuthController::class, 'me']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('check', [AuthController::class, 'checkToken']);
-    Route::get('show/user', [UserChannelController::class, 'show']);
 });
 
 //Rutas del cliente
@@ -43,7 +42,10 @@ Route::group([
     'prefix' => 'client',
 ], function () {
     Route::get('arduino/key', [AuthController::class, 'arduino']);
+    Route::get('show/temperatures', [Esp8266Controller::class, 'show']);
+    Route::get('actually/temperatures', [Esp8266Controller::class, 'actually']);
     Route::group(['prefix' => 'channels'], function () {
+        Route::get('show/user:{user_id?}', [UserChannelController::class, 'show'])->where('user_id','[0-9]+');
         Route::post('create', [ChannelController::class, 'create']);
         Route::put('update/id:{id}', [ChannelController::class, 'update'])->where('id','[0-9]+');
     });

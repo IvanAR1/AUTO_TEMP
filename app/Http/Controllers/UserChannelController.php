@@ -46,9 +46,10 @@ class UserChannelController extends Controller
      * @param  \App\Models\UserChannel  $UserChannel
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($user_id = null)
     {
-        $data = UserChannel::where('user_id','=',Auth::id())->leftJoin('channels', function($join)
+        $userID = $user_id ?: Auth::id();
+        $data = UserChannel::where('user_id','=',$userID)->leftJoin('channels', function($join)
         {
             $join->on('channels.id', '=', 'user_channels.channel_id');
         })->select('channels.id as channel_id','channels.name','channels.description','channels.arduino_key')

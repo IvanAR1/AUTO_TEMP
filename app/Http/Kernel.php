@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'ability' => \Laravel\Sanctum\Http\Middleware\CheckForAnyAbility::class,
         'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
         'esp8266_user' => \App\Http\Middleware\UserESP8266Middleware::class,
+        'arduino_key' => \App\Http\Middleware\ArduinoKeyMiddleware::class,
     ];
 }
