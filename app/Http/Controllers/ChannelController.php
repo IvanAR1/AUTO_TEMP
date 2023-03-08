@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\channel;
 use App\Http\Requests\StorechannelRequest;
 use App\Http\Requests\UpdatechannelRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ChannelController extends Controller
 {
@@ -68,9 +71,25 @@ class ChannelController extends Controller
      * @param  \App\Models\channel  $channel
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatechannelRequest $request, channel $channel)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request->only(['name','description']);
+
+        $Validator = Validator::make($data,[
+            'name'=>'regex:/^([a-z ñáéíóú]{1,100})$/i|max:255',
+            'description'=>'required|regex:/^([a-z ñáéíóú]{1,100})$/i|max:255',
+        ]);
+        
+
+        if($Validator->fails())
+        {
+            return response()->json(['error' => 'Datos no válidos'], 400);
+        }
+
+        $array = array_merge($data, ['arduino_uno'=>str::random(10)]);
+        $channel = Channel::findOrFail($id);
+        $channel->update($array);
+        return response()->json('Datos guardados correctamente');
     }
 
     /**

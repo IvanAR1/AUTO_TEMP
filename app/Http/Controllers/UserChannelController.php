@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\user_channel;
-use App\Http\Requests\Storeuser_channelRequest;
-use App\Http\Requests\Updateuser_channelRequest;
+use App\Models\UserChannel;
+use App\Http\Requests\StoreUserChannelRequest;
+use App\Http\Requests\UpdateUserChannelRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UserChannelController extends Controller
 {
@@ -31,10 +32,10 @@ class UserChannelController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\Storeuser_channelRequest  $request
+     * @param  \App\Http\Requests\StoreUserChannelRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Storeuser_channelRequest $request)
+    public function store(StoreUserChannelRequest $request)
     {
         //
     }
@@ -42,21 +43,27 @@ class UserChannelController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\user_channel  $user_channel
+     * @param  \App\Models\UserChannel  $UserChannel
      * @return \Illuminate\Http\Response
      */
-    public function show(user_channel $user_channel)
+    public function show()
     {
-        //
+        $data = UserChannel::where('user_id','=',Auth::id())->leftJoin('channels', function($join)
+        {
+            $join->on('channels.id', '=', 'user_channels.channel_id');
+        })->select('channels.id as channel_id','channels.name','channels.description','channels.arduino_key')
+          ->orderBy('channel_id','asc')
+          ->get();
+        return response()->json($data);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\user_channel  $user_channel
+     * @param  \App\Models\UserChannel  $UserChannel
      * @return \Illuminate\Http\Response
      */
-    public function edit(user_channel $user_channel)
+    public function edit(UserChannel $UserChannel)
     {
         //
     }
@@ -64,11 +71,11 @@ class UserChannelController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\Updateuser_channelRequest  $request
-     * @param  \App\Models\user_channel  $user_channel
+     * @param  \App\Http\Requests\UpdateUserChannelRequest  $request
+     * @param  \App\Models\UserChannel  $UserChannel
      * @return \Illuminate\Http\Response
      */
-    public function update(Updateuser_channelRequest $request, user_channel $user_channel)
+    public function update(UpdateUserChannelRequest $request, UserChannel $UserChannel)
     {
         //
     }
@@ -76,10 +83,10 @@ class UserChannelController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\user_channel  $user_channel
+     * @param  \App\Models\UserChannel  $UserChannel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(user_channel $user_channel)
+    public function destroy(UserChannel $UserChannel)
     {
         //
     }
