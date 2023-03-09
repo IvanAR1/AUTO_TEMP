@@ -1,0 +1,47 @@
+<section *ngIf="me" class="content">
+    <header class="navbar">
+        <div class="d-flex justify-content-between d-block">
+            <app-sidenav></app-sidenav>
+            <span><img class="Imagen" src="assets/Pipsa-dark.ico" alt="Logotipo"></span>
+        </div>
+        <!-- Buscador -->
+        <form class="d-flex header__search" role="search">
+            <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Buscar">
+            <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+        </form>
+        <div class="justify-content-end">
+            <div class="dropdown">
+                <button class="btn d-flex align-items-baseline dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                    <i class="bi bi-person-circle"></i>
+                    <div>
+                        <span class="ms-2">{{me.alias_user}}</span>
+                    </div>
+                </button>
+                <div class="dropdown-menu bg-blue dropdown-menu-end p-2">
+                        <div class="d-flex flex-row justify-content-between">
+                            <p class="text-capitalize text-start m-2">{{me.role_user}}</p>
+                            <a type="button" (click)="Logout()" class="dropdown-item-text text-decoration-none text-dark text-end w-50 ps-0">Cerrar sesión</a>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-start">
+                        <i class="bi bi-person-circle justify-content-start"></i>
+                        <ul class="p-0">
+                            <li class="dropdown-item fs-4">
+                                <p class="fw-bold m-0 dropdown-item-text">{{me.alias_user}}</p>
+                                <span class="fs-6 m-0 dropdown-item-text">{{me.name_user}} {{me.lastname_user}}</span>
+                            </li>
+                            <li class="dropdown-item">
+                                <p class="m-0 dropdown-item-text">{{me.email}}</p>
+                            </li>
+                            <li type="button" class="dropdown-item-text text-end">
+                                <a class="m-0 text-decoration-none text-dark">Ver cuenta</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="bg-light px-2 pt-3 h-100">
+        <router-outlet></router-outlet>
+    </div>
+</section>

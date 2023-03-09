@@ -1,0 +1,32 @@
+/** Media Queries **/
+@use 'variables' as v;
+
+@mixin telefono {
+    @media (min-width: #{v.$telefono}) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width: #{v.$tablet}) {
+        @content;
+    }
+}
+  
+@mixin desktop {
+    @media (min-width: #{v.$desktop}) {
+        @content;
+    }
+}
+
+@mixin rectangle-squad($width, $height)
+{
+    width: calc($width / 0.5);
+    height: $height;
+}
+
+@mixin grid($columnas, $espaciado ) {
+    display: grid;
+    gap: $espaciado;
+    grid-template-columns: repeat($columnas, 1fr);
+}

@@ -1,0 +1,36 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+ 
+header.navbar
+{
+    background: v.$blanco;
+}
+
+div.dropdown-menu i.bi.bi-person-circle
+{
+    font-size: calc(8.8rem / 1.6);
+}
+
+div.dropdown-menu
+{
+    background-color: v.$blanco;
+}
+
+.Imagen
+{
+    @include m.rectangle-squad(75%, 2rem);
+}
+
+.header__search{
+    width: 100%;
+    order: 1;
+    margin: 0 1rem;
+}
+@include m.tablet
+{
+    .header__search
+    {
+        width: 50%;
+        order: 0;
+    }
+}

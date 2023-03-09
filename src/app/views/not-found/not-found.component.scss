@@ -1,0 +1,14 @@
+.not-found
+{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+}
+
+.not-found__image
+{
+    width: 20rem;
+    height: 20rem;
+}

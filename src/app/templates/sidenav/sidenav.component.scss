@@ -1,0 +1,72 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+div.offcanvas-header, div.offcanvas-body, div.offcanvas-bottom
+{
+    background-color: v.$light;
+}
+
+div.offcanvas-header
+{
+    margin-bottom: -1.2rem;
+}
+
+.logo
+{
+    @include m.rectangle-squad(100%, 5rem);
+    @include m.tablet
+    {
+        transform: translate(50%, 50%);
+        -webkit-transform: translate(20%, 0%);
+    }
+}
+
+li.active, span.messages-btn
+{
+    background: v.$gris;
+    border-radius: 0.8em;
+}
+
+li.active a, li.active a:hover, span.messages-btn
+{
+    color: v.$blanco;
+    font-weight: v.$bold;
+}
+
+li a
+{
+    color: v.$dark;
+}
+
+.cancel
+{
+    font-size: 2rem;
+    margin: 0 -20% 0 0;
+    @include m.tablet
+    {
+        font-size: 2rem;
+        margin: 0 -17% 0 0;
+    }
+    @include m.desktop
+    {
+        font-size: 2rem;
+        margin: 0 -15% 0 0;
+    }
+}
+
+#Sidebar-Header
+{
+    width: 70%;
+    @include m.tablet
+    {
+        width: 50%;
+    }
+    @include m.desktop
+    {
+        width: 25%;
+    }
+}

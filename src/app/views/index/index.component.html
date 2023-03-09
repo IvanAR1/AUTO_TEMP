@@ -1,0 +1,29 @@
+<div class="card" *ngIf="Monitors">
+    <h2 class="text-center">Modificación de monitores</h2>
+    <p-table [columns]="cols"
+             [value]="Monitors" 
+             [paginator]="true" 
+             [rows]="15"
+             styleClass="p-datatable-striped p-datatable-gridlines"
+             [tableStyle]="{'min-width':'50rem'}"
+             [scrollable]="true"
+             scrollHeight="29rem"
+             [resizableColumns]="true"
+             [rowsPerPageOptions]="[5,10,15,20,25]"
+             [showCurrentPageReport]="true"
+             currentPageReportTemplate="Viendo {first} de {last} de {totalRecords} entradas" 
+             [lazy]="true" 
+             [totalRecords]="totalRecords"
+             (onLazyLoad)="getMonitors($event)" >
+        <ng-template pTemplate="header">
+            <tr>
+                <th pResizableColumn class="text-center" *ngFor="let col of cols">{{col.name}}</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td class="text-center" *ngFor="let col of cols">{{rowData[col.field]}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

@@ -1,0 +1,29 @@
+<!-- Empieza el offcanvas -->
+<button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#Sidebar-Header" aria-controls="Sidebar-Header">
+    <i class="bi bi-list"></i>
+</button>
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="Sidebar-Header" aria-labelledby="Sidebar-Header_Tittle">
+    <div class="offcanvas-header text-light">
+        <div>
+            <img class="logo" src="assets/Pipsa-dark.ico" alt="logo">
+        </div>
+        <i type="button" class="justify-content-end bi bi-x cancel" data-bs-dismiss="offcanvas"></i>
+    </div>
+    <div class="offcanvas-body">
+        <hr class="text-white h-color mb-4 mt-0">
+        <ul class="list-unstyled px-2" *ngFor="let route of sidebarLinks">
+            
+            <li routerLinkActive="active"><a routerLink="{{route.link}}" class="text-decoration-none px-2 py-1 d-block" [class.d-flex]="route.messages" [class.justify-content-between]="route.messages"> 
+                <span><i class="bi {{route.icon}}"></i> {{route.label}}</span>
+                <span class="messages-btn rounded-pill py-0 px-2" *ngIf="route.messages">   {{route.messages}}</span>
+            </a></li>
+        </ul>
+    </div>
+    <div class="offcanvas-bottom">
+        <ul class="list-unstyled px-4">
+            <li><a href="#" class="text-decoration-none px-2 py-1 d-block "><i class="bi bi-gear"></i> Settings</a></li>
+            <li><a href="#" class="text-decoration-none px-2 py-1 d-block "><i class="bi bi-bell"></i> Notificaciones</a></li>
+        </ul>
+    </div>
+</div>
