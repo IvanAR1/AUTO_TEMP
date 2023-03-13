@@ -6,7 +6,7 @@ import { Router } from '@angular/router'; //Redirige
 import { LoginService } from 'src/app/services/api/login.service';
 import { SessionStorageService } from 'src/app/services/local/session-storage.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js'; //SweetAlert2
-import { firstValueFrom } from 'rxjs';
+import { delay, firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -80,22 +80,25 @@ export class LoginComponent implements OnInit {
     {
       firstValueFrom(this.isAuthSrv.loginByEmail(form)).then(res => {
           this.Session.setToken(res?.access_token);
+          var audplay = new Audio('assets/sounds/Notify.wav');
+          audplay.play();
+          delay(50);
           Swal.fire({
             title: 'Correcto',
             icon: 'success',
             text: 'Se ha ingresado correctamente',
-            confirmButtonText:'Ok',
+            confirmButtonText:'Ingresar',
             allowOutsideClick:false
           }).then((result) => {
             if (result.value || !result)
             {
-              this.router.navigate(['/index']);
+              this.router.navigateByUrl('/index');
             }
           })
         }
         ).catch(err => 
             this.toastr.error(err.error.message, 'Código de error: ' + err.error.code)
-          );
+          )
     }else
     { 
       this.toastr.error('Correo y/o contraseñas no válidos', 'Error');

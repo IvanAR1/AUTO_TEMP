@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { firstValueFrom } from 'rxjs'; //Procedimientos dentro del pipe
+import { delay, firstValueFrom } from 'rxjs'; //Procedimientos dentro del pipe
 import { ResponseLoginInterface } from 'src/app/models/ResponseLogin.interface';
 import { ResponseService } from 'src/app/services/api/response.service';
 import { SessionStorageService } from 'src/app/services/local/session-storage.service';
@@ -34,18 +34,24 @@ export class HeaderComponent implements OnInit {
   {
     return firstValueFrom(this.ResponseSrv.Logout$()).then(res => {
       this.Session.destroyToken();
-      Swal.fire({
-        title: 'Correcto',
-        icon: 'success',
-        text: res.message,
-        confirmButtonText:'Ok',
-        allowOutsideClick:false
-      }).then((result) => {
-        if (result.value || !result)
-        {
-          this.router.navigate(['/login']);
-        }
-      })
+      var audplay = new Audio('assets/sounds/Notify.wav');
+      audplay.play();
+      delay(50);
+      setTimeout(()=>
+      {
+        Swal.fire({
+          title: 'Correcto',
+          icon: 'success',
+          text: res.message,
+          confirmButtonText:'Ok',
+          allowOutsideClick:false,
+        }).then((result) => {
+          if (result.value || !result)
+          {
+            this.router.navigate(['/login']);
+          }
+        })
+      },1000);
     }
     ).catch(err => 
         this.toastr.error(err.error.error, 'Código de error: ' + err.status)

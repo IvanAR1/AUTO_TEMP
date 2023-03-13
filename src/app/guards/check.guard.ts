@@ -24,13 +24,12 @@ export class CheckGuard implements CanActivateChild {
       this.Session.destroyToken()
       this.router.navigate(['/login'])
     }
-    let Refresh = await this.ResponseSrv.CheckToken$()
+/*     let Refresh = await this.ResponseSrv.CheckToken$()
     if(Refresh.message != 'Token válido')
     {
       this.Session.destroyToken()
       this.router.navigate(['/login'])
-    }
+    } */
     return true;
   }
-  
 }
